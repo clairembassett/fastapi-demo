@@ -1,4 +1,4 @@
-<<<<<<< HEAD
+
 #!/usr/bin/env python3
 
 import os
@@ -96,7 +96,4 @@ def get_songs():
     except Error as e:
         print(f"MySQL Error: {e}")
         return {"Error": f"MySQL Error: {e}"}
-<<<<<<< HEAD
 
-=======
->>>>>>> 7b69b2d7b4088293a5480f18cec4aad1c05eac5b
