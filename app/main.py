@@ -1,13 +1,25 @@
+<<<<<<< HEAD
 #!/usr/bin/env python3
 
 import os
 import mysql.connector
 from mysql.connector import Error
+=======
+import mysql.connector
+from mysql.connector import Error
+#!/usr/bin/env python3
+
+>>>>>>> 7b69b2d7b4088293a5480f18cec4aad1c05eac5b
 from fastapi import FastAPI
 from typing import Optional
 from pydantic import BaseModel
 import json
+<<<<<<< HEAD
 from fastapi.middleware.cors import CORSMiddleware
+=======
+import os
+from fastapi.middleware.cors import CORSMiddleware 
+>>>>>>> 7b69b2d7b4088293a5480f18cec4aad1c05eac5b
 
 DBHOST = "ds2022.cqee4iwdcaph.us-east-1.rds.amazonaws.com"
 DBUSER = "ds2022"
@@ -24,9 +36,15 @@ except Error as e:
 app = FastAPI()
 app.add_middleware(
     CORSMiddleware,
+<<<<<<< HEAD
     allow_origins=['*'],
     allow_methods=['*'],
     allow_headers=['*'],
+=======
+    allow_origins= ['*'],
+    allow_methods= ['*'],
+    allow_headers= ['*'],
+>>>>>>> 7b69b2d7b4088293a5480f18cec4aad1c05eac5b
 )
 
 @app.get("/")
@@ -78,4 +96,7 @@ def get_songs():
     except Error as e:
         print(f"MySQL Error: {e}")
         return {"Error": f"MySQL Error: {e}"}
+<<<<<<< HEAD
 
+=======
+>>>>>>> 7b69b2d7b4088293a5480f18cec4aad1c05eac5b
