@@ -16,13 +16,12 @@ DB = "qxm6fm"
 
 try:
     db = mysql.connector.connect(user=DBUSER, host=DBHOST, password=DBPASS, database=DB)
-    cur=db.cursor()
+    cur = db.cursor()
     print("Database connection successful")
 except Error as e:
-    print("Error connecting to database: {e}")
+    print(f"Error connecting to database: {e}")
 
 app = FastAPI()
-from fastapi.middleware.cors import CORSMiddleware
 app.add_middleware(
     CORSMiddleware,
     allow_origins= ['*'],
@@ -39,19 +38,35 @@ def get_genres():
     query = "SELECT * FROM genres ORDER BY genreid;"
     try:
         cur.execute(query)
-        headers=[x[0] for x in cur.description]
+        headers = [x[0] for x in cur.description]
         results = cur.fetchall()
-        json_data=[]
+        json_data = []
         for result in results:
-            json_data.append(dict(zip(headers,result)))
-            return(json_data)
+            json_data.append(dict(zip(headers, result)))
+        return json_data
     except Error as e:
-        print("MySQL Error: ", str(e))
-        return {"Error": "MySQL Error: " + str(e)}
+        print(f"MySQL Error: {e}")
+        return {"Error": f"MySQL Error: {e}"}
 
-@api.get('/songs')
+@app.get('/songs')
 def get_songs():
-    query = "SELECT songs.title, songs.album, songs.artist, songs.year, songs.file, genres.genre FROM songs JOIN genres ON songs.genre=genres.genreid ORDER BY songs.id;""
+    query = """
+        SELECT 
+            songs.title, 
+            songs.album, 
+            songs.artist, 
+            songs.year, 
+            songs.file, 
+            genres.genre 
+        FROM 
+            songs 
+        JOIN 
+            genres 
+        ON 
+            songs.genre = genres.genreid 
+        ORDER BY 
+            songs.id;
+    """
     try:
         cur.execute(query)
         headers = [x[0] for x in cur.description]
@@ -61,4 +76,5 @@ def get_songs():
             json_data.append(dict(zip(headers, result)))
         return json_data
     except Error as e:
-        return {"Error": "MySQL Error: " + str(e)}
+        print(f"MySQL Error: {e}")
+        return {"Error": f"MySQL Error: {e}"}
