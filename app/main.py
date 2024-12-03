@@ -57,7 +57,8 @@ def get_songs():
             songs.artist, 
             songs.year, 
             songs.file, 
-            genres.genre 
+            songs.image
+	    genres.genre 
         FROM 
             songs 
         JOIN 
